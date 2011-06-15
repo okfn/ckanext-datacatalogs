@@ -55,8 +55,11 @@ class CatalogPlugin(SingletonPlugin):
     def configure(self, config):
         """
         Called at the end of CKAN setup.
+
+        Create catalog and catalog_tag tables in the database.
         """
-        pass
+        model.catalog_table.create(checkfirst=True)
+        model.catalog_tag_table.create(checkfirst=True)
 
     def before_map(self, map):
         """
