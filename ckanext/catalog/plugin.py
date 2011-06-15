@@ -65,12 +65,12 @@ class CatalogPlugin(SingletonPlugin):
         """
         Setup routing.
         """
-        map.connect('catalog_list', '/catalogs',
+        map.connect('list', '/catalogs',
                     controller='ckanext.catalog.controller:CatalogController',
-                    action='catalog_list')
-        map.connect('catalog_new', '/catalog/new',
+                    action='list')
+        map.connect('new', '/catalog/new',
                     controller='ckanext.catalog.controller:CatalogController',
-                    action='catalog_new')
+                    action='new')
         return map
 
     def filter(self, stream):
@@ -81,7 +81,7 @@ class CatalogPlugin(SingletonPlugin):
 
         # add a 'Catalogs' link to the menu bar
         menu_data = {'href': 
-            h.link_to("Catalogs", h.url_for('catalog_list'), 
+            h.link_to("Catalogs", h.url_for('list'), 
                 class_ = ('active' if c.controller == 'ckanext.catalog.controller:CatalogController' else ''))}
         stream = stream | Transformer('body//div[@class="menu"]/ul]')\
             .append(HTML(html.MENU % menu_data))

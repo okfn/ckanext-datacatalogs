@@ -8,13 +8,16 @@ from pylons.i18n import _
 from pylons.decorators import jsonify
 from pylons import request, tmpl_context as c
 from ckan.lib.base import BaseController, response, render, abort
+from ckan.authz import Authorizer
 from ckanext.catalog import model
 
 class CatalogController(BaseController):
     """
     The ckanext-catalog Controller.
     """
-    def catalog_list(self):
+    catalog_form = 'catalog_form.html'
+
+    def list(self):
         """
         Display a page containing a list of all todo items, sorted by category.
         """
@@ -41,8 +44,26 @@ class CatalogController(BaseController):
         c.catalogs = None
         return render("catalog_list.html")
 
-    def catalog_new(self):
+    def new(self, data = None, errors = None, error_summary = None):
         """
         Display the form for adding a new catalog.
         """
-        return "new"
+        context = {'preview': 'preview' in request.params,
+                   'save': 'save' in request.params}
+
+        # TODO: auth for creating catalogs
+        # auth_for_create = Authorizer().am_authorized(c, model.Action.CATALOG_CREATE, model.System())
+        # if not auth_for_create:
+        #     abort(401, _('Unauthorized to create a catalog'))
+
+        # if (context['save'] or context['preview']) and not data:
+        #     return self._save_new(context)
+
+        data = data or {}
+        errors = errors or {}
+        error_summary = error_summary or {}
+        vars = {'data': data, 'errors': errors, 'error_summary': error_summary}
+
+        # self._setup_template_variables(context)
+        c.form = render(self.catalog_form, extra_vars=vars)
+        return render('catalog_new.html')
