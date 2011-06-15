@@ -1,4 +1,4 @@
-<form id="catalog-edit" class="ckan" method="post" 
+<form id="catalog-edit" class="catalog-form ckan" method="post" 
   py:attrs="{'class':'has-errors'} if errors else {}"
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:py="http://genshi.edgewall.org/"
@@ -30,14 +30,14 @@
     <dd class="hints">2+ characters, lowercase, using only 'a-z0-9' and '-_'</dd>
     <dd class="field_error" py:if="errors.get('name', '')">${errors.get('name', '')}</dd>
 
-    <dt><label class="field_opt" for="homepage">Homepage</label></dt>
-    <dd><input id="homepage" name="homepage" type="text" value="${data.get('homepage', '')}"/></dd>
+    <dt><label class="field_opt" for="url">Homepage</label></dt>
+    <dd><input id="url" name="url" type="text" value="${data.get('url', '')}"/></dd>
     <dd class="instructions basic">The homepage (URL) for the catalog.</dd>
     <dd class="hints">e.g. http://www.ckan.net</dd>
-    <dd class="field_error" py:if="errors.get('homepage', '')">${errors.get('homepage', '')}</dd>
+    <dd class="field_error" py:if="errors.get('url', '')">${errors.get('url', '')}</dd>
 
-    <dt><label class="field_opt" for="description">Description</label></dt>
-    <dd><textarea cols="60" id="description" name="description" rows="15">${data.get('description', '')}</textarea></dd>
+    <dt><label class="field_opt" for="notes">Description</label></dt>
+    <dd><textarea cols="60" id="notes" name="notes" rows="15">${data.get('notes', '')}</textarea></dd>
     <dd class="instructions basic">The main description of the catalog.</dd>
     <dd class="instructions further">It is often displayed with the catalog title. 
     In particular, it should start with a short sentence that describes the catalog succinctly, 
@@ -45,8 +45,8 @@
     <dd class="hints">You can use 
     <a href="http://daringfireball.net/projects/markdown/syntax">Markdown formatting</a> here.</dd>
 
-    <dt><label class="field_opt" for="publisher">Publisher</label></dt>
-    <dd><input id="publisher" name="publisher" type="text" value="${data.get('publisher', '')}"/></dd>
+    <dt><label class="field_opt" for="author">Publisher</label></dt>
+    <dd><input id="author" name="author" type="text" value="${data.get('author', '')}"/></dd>
     <dd class="instructions basic">The publisher of the catalog.</dd>
     <dd class="hints">e.g. Open Knowledge Foundation</dd>
 

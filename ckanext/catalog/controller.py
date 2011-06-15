@@ -8,14 +8,69 @@ from pylons.i18n import _
 from pylons.decorators import jsonify
 from pylons import request, tmpl_context as c
 from ckan.lib.base import BaseController, response, render, abort
+from ckan.lib.navl.dictization_functions import DataError, unflatten, validate
+from ckan.logic import NotFound, NotAuthorized, ValidationError
+from ckan.logic import tuplize_dict, clean_dict, parse_params, flatten_to_string_key
 from ckan.authz import Authorizer
+from ckan.controllers.package import PackageController
+from ckan.lib.navl.dictization_functions import validate, missing
+from ckan.lib.navl.validators import (ignore_missing,
+                                      not_empty,
+                                      empty,
+                                      ignore,
+                                      keep_extras,
+                                     )
+import ckan.logic.validators as val
+import ckan.logic.schema as default_schema
 from ckanext.catalog import model
 
-class CatalogController(BaseController):
+def convert_to_extras(key, data, errors, context):
+    extras = data.get(('extras',), [])
+    if not extras:
+        data[('extras',)] = extras
+    extras.append({'key': key[-1], 'value': data[key]})
+
+def convert_from_extras(key, data, errors, context):
+    for data_key, data_value in data.iteritems():
+        if (data_key[0] == 'extras' 
+            and data_key[-1] == 'key'
+            and data_value == key[-1]):
+            data[key] = data[('extras', data_key[1], 'value')]
+
+class CatalogController(PackageController):
     """
     The ckanext-catalog Controller.
     """
-    catalog_form = 'catalog_form.html'
+    package_form = 'catalog_form.html'
+
+    def _form_to_db_schema(self):
+        return {
+            'name': [not_empty, unicode, val.name_validator],
+            'title': [not_empty, unicode],
+            'url': [not_empty, unicode],
+            'notes': [ignore_missing, unicode],
+            'language': [ignore_missing, unicode, convert_to_extras],
+            'spatial': [ignore_missing, unicode, convert_to_extras],
+            '__extras': [ignore],
+        }
+
+    def _db_to_form_schema(data):
+        return {
+            'language': [convert_from_extras, ignore_missing],
+            'spatial': [convert_from_extras, ignore_missing],
+            'extras': {
+                'key': [],
+                'value': [],
+                '__extras': [keep_extras]
+            },
+            'tags': {
+                '__extras': [keep_extras]
+            },
+            '__extras': [keep_extras],
+        }
+
+    def _check_data_dict(self, data_dict):
+        return
 
     def list(self):
         """
@@ -44,26 +99,3 @@ class CatalogController(BaseController):
         c.catalogs = None
         return render("catalog_list.html")
 
-    def new(self, data = None, errors = None, error_summary = None):
-        """
-        Display the form for adding a new catalog.
-        """
-        context = {'preview': 'preview' in request.params,
-                   'save': 'save' in request.params}
-
-        # TODO: auth for creating catalogs
-        # auth_for_create = Authorizer().am_authorized(c, model.Action.CATALOG_CREATE, model.System())
-        # if not auth_for_create:
-        #     abort(401, _('Unauthorized to create a catalog'))
-
-        # if (context['save'] or context['preview']) and not data:
-        #     return self._save_new(context)
-
-        data = data or {}
-        errors = errors or {}
-        error_summary = error_summary or {}
-        vars = {'data': data, 'errors': errors, 'error_summary': error_summary}
-
-        # self._setup_template_variables(context)
-        c.form = render(self.catalog_form, extra_vars=vars)
-        return render('catalog_new.html')
