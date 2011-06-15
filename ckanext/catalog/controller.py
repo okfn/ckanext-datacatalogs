@@ -8,20 +8,11 @@ from pylons.i18n import _
 from pylons.decorators import jsonify
 from pylons import request, tmpl_context as c
 from ckan.lib.base import BaseController, response, render, abort
-from ckan.lib.navl.dictization_functions import DataError, unflatten, validate
-from ckan.logic import NotFound, NotAuthorized, ValidationError
-from ckan.logic import tuplize_dict, clean_dict, parse_params, flatten_to_string_key
-from ckan.authz import Authorizer
 from ckan.controllers.package import PackageController
-from ckan.lib.navl.dictization_functions import validate, missing
-from ckan.lib.navl.validators import (ignore_missing,
-                                      not_empty,
-                                      empty,
-                                      ignore,
-                                      keep_extras,
-                                     )
+from ckan.lib.navl.validators import (
+    ignore_missing, not_empty, ignore, keep_extras
+)
 import ckan.logic.validators as val
-import ckan.logic.schema as default_schema
 from ckanext.catalog import model
 
 def convert_to_extras(key, data, errors, context):

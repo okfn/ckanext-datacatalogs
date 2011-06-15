@@ -58,6 +58,7 @@ class CatalogPlugin(SingletonPlugin):
 
         Create catalog and catalog_tag tables in the database.
         """
+        pass
 
     def before_map(self, map):
         """
