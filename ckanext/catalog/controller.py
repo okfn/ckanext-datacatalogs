@@ -51,6 +51,7 @@ class CatalogController(PackageController):
             'notes': [ignore_missing, unicode],
             'language': [ignore_missing, unicode, convert_to_extras],
             'spatial': [ignore_missing, unicode, convert_to_extras],
+            'tag_string': [ignore_missing, val.tag_string_convert],
             '__extras': [ignore],
         }
 
@@ -98,4 +99,3 @@ class CatalogController(PackageController):
         # c.categories.sort(key = lambda x: x.name)
         c.catalogs = None
         return render("catalog_list.html")
-

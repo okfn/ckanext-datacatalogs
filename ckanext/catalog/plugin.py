@@ -69,6 +69,9 @@ class CatalogPlugin(SingletonPlugin):
         map.connect('new', '/catalog/new',
                     controller='ckanext.catalog.controller:CatalogController',
                     action='new')
+        map.connect('edit', '/catalog/edit/{id}', 
+                    controller='ckanext.catalog.controller:CatalogController', 
+                    action='edit')
         return map
 
     def filter(self, stream):
