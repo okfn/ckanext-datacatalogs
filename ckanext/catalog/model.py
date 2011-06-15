@@ -19,6 +19,7 @@ catalog_table = Table('catalog', meta.metadata,
     meta.Column('publisher', types.UnicodeText, nullable = False),
     meta.Column('description', types.UnicodeText),
     meta.Column('spatial', types.UnicodeText),
+    meta.Column('language', types.UnicodeText),
     meta.Column('created', DateTime, default = datetime.now, nullable = False))
 
 catalog_tag_table = Table('catalog_tag', meta.metadata,

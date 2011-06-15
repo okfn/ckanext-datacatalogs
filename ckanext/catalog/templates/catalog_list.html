@@ -1,0 +1,40 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+      xmlns:i18n="http://genshi.edgewall.org/i18n"
+      xmlns:xi="http://www.w3.org/2001/XInclude"
+      py:strip="">
+
+  <py:def function="page_title">Catalog List</py:def>
+  <link rel="stylesheet"  type="text/css" media="screen, print"
+        href="/ckanext-catalog/css/main.css"
+        py:def="optional_head()" />
+
+  <div py:match="content" class="package">
+    <h2 class="head">Catalog List</h2>
+
+    <div id="catalog-list-content" py:choose="">
+        <span py:when="not c.catalogs">
+            There are currently no catalogs in the database.
+        </span>
+
+        <div py:otherwise="">
+            <py:for each="catalog in c.catalogs">
+            <div class="catalog-list">
+                <h4 id="${catalog.name}">${catalog.name}</h4>
+            </div>
+            </py:for>
+        </div>
+
+        <div id="catalog-actions">
+            <a href="/catalog/new" id="catalog-add">Add a new catalog</a>
+        </div>
+    </div>
+  </div> <!-- content -->
+
+  <xi:include href="package/layout.html" />
+
+  <script type="text/javascript">
+    $('document').ready(function($){
+      //$('#catalog-add').button();
+    });
+  </script>
+</html>
