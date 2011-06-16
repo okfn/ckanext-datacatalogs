@@ -12,6 +12,7 @@
     <h2 class="head">Data Catalogs</h2>
 
     <div id="catalog-actions">
+        <!-- TODO: use url_for to generate this url -->
         <a href="/catalog/new" id="catalog-add">Add a new catalog</a>
     </div>
 
@@ -22,12 +23,21 @@
 
         <div py:otherwise="">
             <h3>Catalog List</h3>
-            ${package_list(c.catalogs)}
-            <!-- <py:for each="catalog in c.catalogs"> -->
-            <!-- <div class="catalog-list"> -->
-                <!-- <span id="${catalog.name}">${catalog.name}</span> -->
-            <!-- </div> -->
-            <!-- </py:for> -->
+            <ul id="catalog-list" class="packages">
+              <li py:for="catalog in c.catalogs">
+                <div class="header">
+                  <span class="title">
+                    <!-- TODO: use url_for to generate this url -->
+                    <!-- ${h.link_to(catalog.title or catalog.name,  -->
+                                <!-- h.url_for(controller='catalog_read', action='read', id=catalog.name))} -->
+                    <a href="/catalog/read/${catalog.name}">${catalog.title}</a>
+                  </span>
+                </div>
+                <div class="extract">
+                  ${h.markdown_extract(catalog.notes)}
+                </div>
+            </li>
+          </ul>
         </div>
     </div>
   </div> <!-- content -->
