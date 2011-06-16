@@ -9,7 +9,11 @@
         py:def="optional_head()" />
 
   <div py:match="content" class="package">
-    <h2 class="head">Catalog List</h2>
+    <h2 class="head">Data Catalogs</h2>
+
+    <div id="catalog-actions">
+        <a href="/catalog/new" id="catalog-add">Add a new catalog</a>
+    </div>
 
     <div id="catalog-list-content" py:choose="">
         <span py:when="not c.catalogs">
@@ -17,15 +21,12 @@
         </span>
 
         <div py:otherwise="">
+            <h3>Catalog List</h3>
             <py:for each="catalog in c.catalogs">
             <div class="catalog-list">
-                <h4 id="${catalog.name}">${catalog.name}</h4>
+                <span id="${catalog.name}">${catalog.name}</span>
             </div>
             </py:for>
-        </div>
-
-        <div id="catalog-actions">
-            <a href="/catalog/new" id="catalog-add">Add a new catalog</a>
         </div>
     </div>
   </div> <!-- content -->

@@ -7,31 +7,34 @@ log = getLogger(__name__)
 from pylons.i18n import _
 from pylons.decorators import jsonify
 from pylons import request, tmpl_context as c
-from ckan.lib.base import BaseController, response, render, abort
+from ckan.lib.base import BaseController, response, render, abort, h
 from ckan.controllers.package import PackageController
 from ckan.lib.navl.validators import (
     ignore_missing, not_empty, ignore, keep_extras
 )
 import ckan.logic.validators as val
+from ckan.lib.search import query_for
+from sqlalchemy.orm import eagerload_all
 from ckanext.catalog import model
 
-CATALOGS_TAG = u'data-catalog'
+CATALOG_TAG = u'data-catalog'
+LIST_LIMIT = 25
 
 def add_catalog_tag(key, data, errors, context):
     """
-    Adds a tag with the value of the CATALOGS_TAG variable to the tags list if it
+    Adds a tag with the value of the CATALOG_TAG variable to the tags list if it
     doesn't already exist
     """
-    if not CATALOGS_TAG in data[key]:
-        data[key] = CATALOGS_TAG + u' ' + data[key]
+    if not CATALOG_TAG in data[key]:
+        data[key] = CATALOG_TAG + u' ' + data[key]
 
 def remove_catalog_tag(key, data, errors, context):
     """
-    Sets the tag with the value in the CATALOGS_TAG variable to the empty string
+    Sets the tag with the value in the CATALOG_TAG variable to the empty string
     """
     for data_key, data_value in data.iteritems():
         if (data_key[0] == 'tags' and data_key[-1] == 'name'
-            and data_value == CATALOGS_TAG):
+            and data_value == CATALOG_TAG):
             data[data_key] = u''
 
 def convert_to_extras(key, data, errors, context):
@@ -86,27 +89,14 @@ class CatalogController(PackageController):
 
     def list(self):
         """
-        Display a page containing a list of all todo items, sorted by category.
+        Display a page containing a list of all data catalogs
         """
-        # categories = model.Session.query(func.count(model.Todo.id).label('todo_count'), 
-        #                                  model.Todo.todo_category_id)\
-        #     .filter(model.Todo.resolved == None)\
-        #     .group_by(model.Todo.todo_category_id)
-        # c.categories = []
-        # c.pkg_names = {}
-        # for t in categories:
-        #     tc = model.TodoCategory.get(t.todo_category_id)
-        #     tc.todo_count = t.todo_count
-        #     # get todo items for each category
-        #     tc.todo = model.Session.query(model.Todo).filter(model.Todo.resolved == None)\
-        #         .filter(model.Todo.todo_category_id == t.todo_category_id)\
-        #         .order_by(model.Todo.created.desc())
-        #     for todo in tc.todo:
-        #         # get the package name for each package if one exists
-        #         if todo.package_id:
-        #             c.pkg_names[todo.package_id] = model.Package.get(todo.package_id).name
-        #     c.categories.append(tc)
-        # # sort into alphabetical order
-        # c.categories.sort(key = lambda x: x.name)
-        c.catalogs = None
+        query = model.Session.query(model.Tag)\
+            .filter(model.Tag.name == CATALOG_TAG)\
+            .options(eagerload_all('package_tags.package'))\
+            .options(eagerload_all('package_tags.package.package_tags.tag'))
+        tag = query.first()
+        if tag is None:
+            abort(404)
+        c.catalogs = tag.packages_ordered
         return render("catalog_list.html")
