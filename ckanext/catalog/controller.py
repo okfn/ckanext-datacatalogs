@@ -13,12 +13,11 @@ from ckan.lib.navl.validators import (
     ignore_missing, not_empty, ignore, keep_extras
 )
 import ckan.logic.validators as val
-from ckan.lib.search import query_for
 from sqlalchemy.orm import eagerload_all
 from ckanext.catalog import model
 
 CATALOG_TAG = u'data-catalog'
-LIST_LIMIT = 25
+LIST_LIMIT = 25 # TODO: limit list results to this name items per page
 
 def add_catalog_tag(key, data, errors, context):
     """
@@ -91,12 +90,14 @@ class CatalogController(PackageController):
         """
         Display a page containing a list of all data catalogs
         """
-        query = model.Session.query(model.Tag)\
+        tag = model.Session.query(model.Tag)\
             .filter(model.Tag.name == CATALOG_TAG)\
             .options(eagerload_all('package_tags.package'))\
-            .options(eagerload_all('package_tags.package.package_tags.tag'))
-        tag = query.first()
+            .options(eagerload_all('package_tags.package.package_tags.tag'))\
+            .first()
         if tag is None:
             abort(404)
-        c.catalogs = tag.packages_ordered
+        # TODO: check state of package for deleted/removed/inactive packages
+        cat_cmp = lambda pkg1, pkg2: cmp(pkg1.name, pkg2.name)
+        c.catalogs = sorted(tag.packages, cmp = cat_cmp)
         return render("catalog_list.html")

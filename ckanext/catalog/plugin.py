@@ -80,12 +80,10 @@ class CatalogPlugin(SingletonPlugin):
         Required to implement IGenshiStreamFilter.
         """
         routes = request.environ.get('pylons.routes_dict')
-
         # add a 'Catalogs' link to the menu bar
         menu_data = {'href': 
             h.link_to("Catalogs", h.url_for('list'), 
                 class_ = ('active' if c.controller == 'ckanext.catalog.controller:CatalogController' else ''))}
         stream = stream | Transformer('body//div[@class="menu"]/ul]')\
             .append(HTML(html.MENU % menu_data))
-
         return stream

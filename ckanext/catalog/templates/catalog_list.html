@@ -22,11 +22,12 @@
 
         <div py:otherwise="">
             <h3>Catalog List</h3>
-            <py:for each="catalog in c.catalogs">
-            <div class="catalog-list">
-                <span id="${catalog.name}">${catalog.name}</span>
-            </div>
-            </py:for>
+            ${package_list(c.catalogs)}
+            <!-- <py:for each="catalog in c.catalogs"> -->
+            <!-- <div class="catalog-list"> -->
+                <!-- <span id="${catalog.name}">${catalog.name}</span> -->
+            <!-- </div> -->
+            <!-- </py:for> -->
         </div>
     </div>
   </div> <!-- content -->
