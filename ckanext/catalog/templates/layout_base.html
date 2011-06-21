@@ -97,7 +97,7 @@
       <div class="menu">
         <ul>
           <li>${h.nav_link(c, _('Home'), controller='home', action='index', id=None)}</li>
-          <li>${h.nav_link(c, _('Search'), controller='package', action='index', id=None, highlight_actions = 'search index')}</li>
+          <li>${h.nav_link(c, _('Search'), controller='ckanext.catalog.controller:CatalogController', action='index', id=None, highlight_actions = 'search index')}</li>
 <?python
     am_authorized_package_create = h.am_authorized(c, actions.PACKAGE_CREATE)
 ?>
