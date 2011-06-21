@@ -67,4 +67,32 @@ class CatalogPlugin(SingletonPlugin):
         map.connect('catalog_read', '/catalog/{id}', 
                     controller='ckanext.catalog.controller:CatalogController', 
                     action='read')
+        map.connect('catalog_history', '/catalog/history/{id}', 
+                    controller='ckanext.catalog.controller:CatalogController', 
+                    action='history')
+        map.connect('/catalog/{action}/{id}',
+                    controller='ckanext.catalog.controller:CatalogController', 
+                    requirements=dict(action='|'.join([
+                        'edit',
+                        'authz',
+                        'history',
+                        'read_ajax',
+                        'history_ajax',
+                    ]))
+        )
+        map.connect('catalog_index', '/catalog',  
+                    controller='ckanext.catalog.controller:CatalogController', 
+                    action='index')
+        map.connect('/catalog/{action}',
+                    controller='ckanext.catalog.controller:CatalogController', 
+                    requirements=dict(action='|'.join([
+                        'list',
+                        'new',
+                        'autocomplete',
+                        'search'
+                    ]))
+        )
+        map.connect('/catalog/{action}/{id}/{revision}', 
+                    controller='ckanext.catalog.controller:CatalogController', 
+                    action='read_ajax')
         return map
