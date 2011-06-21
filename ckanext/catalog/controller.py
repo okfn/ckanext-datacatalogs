@@ -61,7 +61,7 @@ class CatalogController(PackageController):
     """
     The ckanext-catalog Controller.
     """
-    package_form = 'catalog_form.html'
+    package_form = 'package/catalog_form.html'
 
     def _form_to_db_schema(self):
         return {

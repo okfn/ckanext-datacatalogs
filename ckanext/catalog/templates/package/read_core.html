@@ -41,7 +41,7 @@
     </py:def>
 
     <div class="details subsection">
-    <h3>About this package</h3>
+    <h3>Catalog Details</h3>
     <table>
       <tbody>
         ${details_item('Author', c.pkg_author_link)}
@@ -70,45 +70,9 @@
         </tr>
       </tbody>
           <caption py:if="h.am_authorized(c, actions.EDIT, c.pkg)">
-              Something missing? ${h.subnav_link(c, 'Please help improve this page by adding more information', controller='package', action='edit', id=c.pkg.name)}.
+              Something missing? ${h.subnav_link(c, 'Please help improve this page by adding more information', controller='ckanext.catalog.controller:CatalogController', action='edit', id=c.pkg.name)}.
           </caption>
     </table>
-    </div>
-    
-    <div class="api subsection" py:if="not c.is_preview">
-        <h3>${g.site_title} API / datapkg</h3>
-        <div>
-            <p>
-                This information on this page (the package metadata) is also
-                available programatically via this site's <a
-                  href="${h.url_for(controller='api', action='get_api', id=None)}">CKAN API</a>.
-            </p>
-            <h5>JSON</h5>
-            <code>
-                <py:if test="config.get('ckan.api_url')">                
-                  <a href="${config.get('ckan.api_url') + h.url_for(controller='api', register='package', action='show', id=c.pkg.name)}">
-                    ${config.get('ckan.api_url') + h.url_for(controller='api', register='package', action='show', id=c.pkg.name)}</a>
-                </py:if>                
-                <py:if test="not config.get('ckan.api_url')">
-                  <a href="${h.url_for(controller='api', register='package', action='show', id=c.pkg.name)}">
-                    ${h.url_for(controller='api', register='package', action='show', id=c.pkg.name)}</a>
-                </py:if>
-            </code>
-            <py:if test="config.get('rdf_packages')">
-                <h5>RDF</h5>
-                <code><a href="${config.get('rdf_packages') + '/' + c.pkg.id + '.rdf'}">RDF/XML</a></code>
-                <code><a href="${config.get('rdf_packages') + '/' + c.pkg.id + '.ttl'}">Turtle</a></code>
-                <code><a href="${config.get('rdf_packages') + '/' + c.pkg.id + '.nt'}">N-Triples</a></code>
-            </py:if>
-            <p>
-                The information on this page and the downloads / resources are also available using the 
-                <a href="http://blog.okfn.org/2010/02/23/introducing-datapkg/">datapkg command line utility</a>.
-            </p>
-            <h5>Information about this package:</h5>
-            <code>$ datapkg info ckan://${c.pkg.name}</code>            
-            <h5>Download:</h5>
-            <code>$ datapkg download ckan://${c.pkg.name} .</code>            
-        </div>
     </div>
 
     <ul>
