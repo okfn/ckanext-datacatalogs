@@ -3,18 +3,27 @@ CKAN Catalog Extension
 """
 from logging import getLogger
 log = getLogger(__name__)
+import datetime
+import re
 
 from pylons.i18n import _
 from pylons.decorators import jsonify
 from pylons import request, tmpl_context as c
+from pylons import config, cache
 from ckan.lib.base import BaseController, response, render, abort, h
-from ckan.controllers.package import PackageController
+from ckan.lib.base import etag_cache, response, redirect, gettext
+from ckan.lib.package_saver import PackageSaver, ValidationException
+from ckan.lib.cache import proxy_cache
+from ckan.controllers.package import PackageController, autoneg_cfg
 from ckan.lib.navl.validators import (
     ignore_missing, not_empty, ignore, keep_extras
 )
+import ckan.logic.action.get as get
 import ckan.logic.validators as val
+from ckan.logic import NotFound, NotAuthorized, ValidationError
 from sqlalchemy.orm import eagerload_all
-from ckanext.catalog import model
+from autoneg.accept import negotiate
+from ckan import model
 
 CATALOG_TAG = u'data-catalog'
 LIST_LIMIT = 25 # TODO: limit list results to this name items per page
@@ -85,6 +94,50 @@ class CatalogController(PackageController):
 
     def _check_data_dict(self, data_dict):
         return
+
+    @proxy_cache()
+    def read(self, id):
+        context = {'model': model, 'session': model.Session,
+                   'user': c.user or c.author, 'extras_as_string': True,
+                   'schema': self._form_to_db_schema(),
+                   'id': id}
+        split = id.split('@')
+        if len(split) == 2:
+            context['id'], revision = split
+            try:
+                date = datetime.datetime(*map(int, re.split('[^\d]', revision)))
+                context['revision_date'] = date
+            except ValueError:
+                context['revision_id'] = revision
+        #check if package exists
+        try:
+            c.pkg_dict = get.package_show(context)
+            c.pkg = context['package']
+        except NotFound:
+            abort(404, _('Package not found'))
+        except NotAuthorized:
+            abort(401, _('Unauthorized to read package %s') % id)
+        
+        # cache_key = self._pkg_cache_key(c.pkg)        
+        # etag_cache(cache_key)
+        
+        #set a cookie so we know whether to display the welcome message
+        c.hide_welcome_message = bool(request.cookies.get('hide_welcome_message', False))
+        response.set_cookie('hide_welcome_message', '1', max_age=3600) #(make cross-site?)
+
+        # used by disqus plugin
+        c.current_package_id = c.pkg.id
+        
+        if config.get('rdf_packages'):
+            accept_header = request.headers.get('Accept', '*/*')
+            for content_type, exts in negotiate(autoneg_cfg, accept_header):
+                if "html" not in exts: 
+                    rdf_url = '%s%s.%s' % (config['rdf_packages'], c.pkg.id, exts[0])
+                    redirect(rdf_url, code=303)
+                break
+
+        PackageSaver().render_package(c.pkg_dict, context)
+        return render('catalog_read.html')
 
     def list(self):
         """

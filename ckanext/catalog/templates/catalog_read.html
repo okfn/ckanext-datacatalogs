@@ -1,0 +1,27 @@
+<html xmlns:py="http://genshi.edgewall.org/"
+  xmlns:i18n="http://genshi.edgewall.org/i18n"
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  py:strip="">
+
+  <py:def function="page_title">${c.pkg_dict.get('title', c.pkg_dict['name'])} - Data Catalogs</py:def>
+  <py:def function="body_class">hide-sidebar</py:def>
+
+  <div py:match="content">
+    <xi:include href="catalog_read_core.html" />
+  </div>
+
+  <py:if test="config.get('rdf_packages')">
+    <py:def function="optional_head">
+      <link rel="alternate" type="application/rdf+xml" title="RDF/XML" href="${config['rdf_packages'] + '/' + c.pkg.id + '.rdf' }" />
+      <link rel="alternate" type="application/turtle" title="RDF/Turtle" href="${config['rdf_packages'] + '/' + c.pkg.id + '.ttl' }" />
+    </py:def>
+  </py:if>
+
+  <py:def function="optional_feed">
+  <link rel="alternate" type="application/atom+xml" title="Package History"
+    href="${url(controller='package', action='history', id=c.pkg.name, format='atom', days=7)}" />
+  </py:def>
+
+  <xi:include href="layout.html" />
+</html>
+

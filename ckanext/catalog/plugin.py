@@ -11,14 +11,11 @@ log = getLogger(__name__)
 from genshi.input import HTML
 from genshi.filters import Transformer
 from pylons import request, tmpl_context as c
-from webob import Request
 from ckan.lib.base import h
 from ckan.plugins import SingletonPlugin, implements
 from ckan.plugins.interfaces import (IConfigurable, IRoutes, 
                                      IGenshiStreamFilter, IConfigurer)
 
-from ckanext.catalog import model
-from ckanext.catalog import controller
 from ckanext.catalog import html
 
 class CatalogPlugin(SingletonPlugin):
