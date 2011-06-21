@@ -8,15 +8,10 @@ import os
 from logging import getLogger
 log = getLogger(__name__)
 
-from genshi.input import HTML
-from genshi.filters import Transformer
 from pylons import request, tmpl_context as c
 from ckan.lib.base import h
 from ckan.plugins import SingletonPlugin, implements
-from ckan.plugins.interfaces import (IConfigurable, IRoutes, 
-                                     IGenshiStreamFilter, IConfigurer)
-
-from ckanext.catalog import html
+from ckan.plugins.interfaces import IConfigurable, IRoutes, IConfigurer
 
 class CatalogPlugin(SingletonPlugin):
     """
@@ -25,7 +20,6 @@ class CatalogPlugin(SingletonPlugin):
     implements(IConfigurable)
     implements(IConfigurer, inherit=True)
     implements(IRoutes, inherit=True)
-    implements(IGenshiStreamFilter)
 
     def update_config(self, config):
         """
@@ -74,10 +68,3 @@ class CatalogPlugin(SingletonPlugin):
                     controller='ckanext.catalog.controller:CatalogController', 
                     action='read')
         return map
-
-    def filter(self, stream):
-        """
-        Required to implement IGenshiStreamFilter.
-        """
-        routes = request.environ.get('pylons.routes_dict')
-        return stream
