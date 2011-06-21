@@ -69,6 +69,7 @@ class CatalogController(PackageController):
             'title': [not_empty, unicode],
             'url': [not_empty, unicode],
             'notes': [ignore_missing, unicode],
+            'author': [ignore_missing, unicode],
             'language': [ignore_missing, unicode, convert_to_extras],
             'spatial': [ignore_missing, unicode, convert_to_extras],
             # 'tag_string': [add_catalog_tag, ignore_missing, val.tag_string_convert],
