@@ -80,6 +80,9 @@ class CatalogPlugin(SingletonPlugin):
                         'history_ajax',
                     ]))
         )
+        map.connect('catalog_search', '/catalog',  
+                    controller='ckanext.catalog.controller:CatalogController', 
+                    action='search')
         map.connect('catalog_index', '/catalog',  
                     controller='ckanext.catalog.controller:CatalogController', 
                     action='index')
