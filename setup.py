@@ -19,7 +19,8 @@ setup(
     package_data = {'ckanext.catalog' : ['public/ckanext-catalog/*.js', 
                                          'public/ckanext-catalog/css/*.css',
                                          'public/ckanext-catalog/images/*.png',
-                                         'templates/*.html']},
+                                         'templates/*.html',
+                                         'templates/package*.html']},
 	include_package_data=True,
 	zip_safe=False,
 	install_requires=[

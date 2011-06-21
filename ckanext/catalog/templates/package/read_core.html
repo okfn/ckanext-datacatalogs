@@ -2,7 +2,7 @@
   xmlns:xi="http://www.w3.org/2001/XInclude"
   py:strip=""
   >
-  <xi:include href="_util.html" />
+  <xi:include href="../_util.html" />
   <div id="package" class="package">
     <!-- Title -->
     <h2 class="head">
@@ -27,40 +27,6 @@
       ${c.pkg_notes_formatted}
     </div>
     
-    <!-- Downloads and resources -->
-    <div class="resources subsection">
-      <h3>Downloads &amp; Resources</h3>
-      <py:choose test="">
-      <table py:when="c.pkg_dict.get('resources', [])">
-        <tr>
-            <th>Description</th>
-            <th>Format</th>
-            <th>Hash</th>
-        </tr>
-        <py:for each="res in c.pkg_dict.get('resources', [])">
-          <tr>
-              <td>
-                  <py:choose test="">
-                    <py:when test="res.get('description')">
-                      <a href="${res.get('url', '')}" target="_blank">${res.description}</a>  
-                    </py:when>
-                    <py:otherwise test="">
-                      <a href="${res.get('url', '')}" target="_blank">Download <em>(no description)</em></a>  
-                    </py:otherwise>
-                  </py:choose>
-              </td>
-              <td>${res.get('format', '')}</td>
-              <td>${res.get('hash', '')}</td>
-          </tr>
-        </py:for>
-            <caption>
-                This is a list of all known formats and datasets for <em>${c.pkg_dict.get('title', '')}</em>. If you know of another (CSV, SPARQL end-point etc.) ${h.subnav_link(c, 'please edit this page and add it to the list', controller='package', action='edit', id=c.pkg.name)}.
-            </caption>
-      </table>
-      <table py:otherwise=""><tr><th>Resources</th><td>None given for this package.</td></tr></table>
-      </py:choose>
-    </div>
-
     <hr class="cleared" />
 
     <py:def function="details_item(label, value)">
