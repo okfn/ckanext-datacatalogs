@@ -70,7 +70,7 @@ class CatalogPlugin(SingletonPlugin):
         map.connect('catalog_edit', '/catalog/edit/{id}', 
                     controller='ckanext.catalog.controller:CatalogController', 
                     action='edit')
-        map.connect('catalog_read', '/catalog/read/{id}', 
+        map.connect('catalog_read', '/catalog/{id}', 
                     controller='ckanext.catalog.controller:CatalogController', 
                     action='read')
         return map
@@ -80,10 +80,4 @@ class CatalogPlugin(SingletonPlugin):
         Required to implement IGenshiStreamFilter.
         """
         routes = request.environ.get('pylons.routes_dict')
-        # add a 'Catalogs' link to the menu bar
-        menu_data = {'href': 
-            h.link_to("Catalogs", h.url_for('catalog_list'), 
-                class_ = ('active' if c.controller == 'ckanext.catalog.controller:CatalogController' else ''))}
-        stream = stream | Transformer('body//div[@class="menu"]/ul]')\
-            .append(HTML(html.MENU % menu_data))
         return stream

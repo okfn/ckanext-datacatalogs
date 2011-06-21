@@ -26,7 +26,6 @@ from autoneg.accept import negotiate
 from ckan import model
 
 CATALOG_TAG = u'data-catalog'
-LIST_LIMIT = 25 # TODO: limit list results to this name items per page
 
 def add_catalog_tag(key, data, errors, context):
     """
@@ -72,7 +71,8 @@ class CatalogController(PackageController):
             'notes': [ignore_missing, unicode],
             'language': [ignore_missing, unicode, convert_to_extras],
             'spatial': [ignore_missing, unicode, convert_to_extras],
-            'tag_string': [add_catalog_tag, ignore_missing, val.tag_string_convert],
+            # 'tag_string': [add_catalog_tag, ignore_missing, val.tag_string_convert],
+            'tag_string': [ignore_missing, val.tag_string_convert],
             '__extras': [ignore],
         }
 
@@ -86,7 +86,7 @@ class CatalogController(PackageController):
                 '__extras': [keep_extras]
             },
             'tags': {
-                'name': [remove_catalog_tag],
+                # 'name': [remove_catalog_tag],
                 '__extras': [keep_extras]
             },
             '__extras': [keep_extras],
@@ -118,6 +118,7 @@ class CatalogController(PackageController):
         except NotAuthorized:
             abort(401, _('Unauthorized to read package %s') % id)
         
+        # TODO: enable etag caching in production
         # cache_key = self._pkg_cache_key(c.pkg)        
         # etag_cache(cache_key)
         
@@ -138,19 +139,3 @@ class CatalogController(PackageController):
 
         PackageSaver().render_package(c.pkg_dict, context)
         return render('catalog_read.html')
-
-    def list(self):
-        """
-        Display a page containing a list of all data catalogs
-        """
-        tag = model.Session.query(model.Tag)\
-            .filter(model.Tag.name == CATALOG_TAG)\
-            .options(eagerload_all('package_tags.package'))\
-            .options(eagerload_all('package_tags.package.package_tags.tag'))\
-            .first()
-        if tag is None:
-            abort(404)
-        # TODO: check state of package for deleted/removed/inactive packages
-        cat_cmp = lambda pkg1, pkg2: cmp(pkg1.name, pkg2.name)
-        c.catalogs = sorted(tag.packages, cmp = cat_cmp)
-        return render("catalog_list.html")
