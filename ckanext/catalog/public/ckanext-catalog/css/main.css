@@ -1,8 +1,0 @@
-/* Main CSS for Catalog Extension */
-
-/* catalogs list page */
-#catalog-list-content { margin-top: 2em; }
-#catalog-actions { margin-top: 2em; }
-
-/* new/edit form */
-#catalog-edit dd { margin-bottom: 0; }
