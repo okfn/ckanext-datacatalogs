@@ -9,28 +9,14 @@
       ${c.pkg_dict.get('title','')}
       <p class="atom-feed-link package-history-link">
         <a
-          href="${url(controller='package', action='history', id=c.pkg.name, format='atom', days=7)}"
-          title="${g.site_title} - Package History - ${c.pkg.name}">
+          href="${url(controller='ckanext.catalog.controller:CatalogController', action='history', id=c.pkg.name, format='atom', days=7)}"
+          title="${g.site_title} - Catalog History - ${c.pkg.name}">
           Subscribe &raquo;</a>
       </p>
     </h2>
-    
-    <!-- Source URL -->    
-    <div class="url" py:if="c.pkg_dict.get('url')">
-      <p>
-        Source: ${c.pkg_url_link}
-      </p>
-    </div>
-    
-    <!-- About package -->
-    <div class="notes" py:if="str(c.pkg_notes_formatted).strip()">
-      ${c.pkg_notes_formatted}
-    </div>
-    
-    <hr class="cleared" />
 
     <py:def function="details_item(label, value)">
-        <tr>
+       <tr>
           <td class="package-label">
             ${label}
           </td>
@@ -41,28 +27,19 @@
     </py:def>
 
     <div class="details subsection">
-    <h3>Catalog Details</h3>
     <table>
       <tbody>
-        ${details_item('Author', c.pkg_author_link)}
-        ${details_item('Maintainer', c.pkg_maintainer_link)}
-        ${details_item('Version', c.pkg_dict.get('version', ''))}
         <tr>
-          <td class="package-label">
-            License
-          </td>
-          <td class="package-details">
-          <py:choose test="">
-          <py:when test="c.pkg.license and c.pkg.license.url">
-            <a href="${c.pkg.license.url}">${c.pkg.license.title}</a>
-          </py:when>
-          <py:when test="c.pkg.license">${c.pkg.license.title}</py:when>
-          <py:when test="c.pkg.license_id">${c.pkg.license_id}</py:when>
-          <py:otherwise test="">
-            -
-          </py:otherwise>
-          </py:choose>
-          </td>
+          <td class="package-label">Homepage</td>
+          <td class="package-details">${c.pkg_url_link}</td>
+        </tr>
+        <tr>
+          <td class="package-label">Description</td>
+          <td class="package-details">${c.pkg_notes_formatted}</td>
+        </tr>
+        <tr>
+          <td class="package-label">Publisher</td>
+          <td class="package-details">${c.pkg_dict['author']}</td>
         </tr>
         <tr py:for="key, value in c.pkg_extras">
           <td class="package-label">${_(key)}</td>
@@ -74,12 +51,6 @@
           </caption>
     </table>
     </div>
-
-    <ul>
-      <py:if test="h.am_authorized(c, actions.CHANGE_STATE, c.pkg)">
-         <li><strong>State:</strong> ${c.pkg.state}</li>
-      </py:if>
-    </ul>
 
     <hr class="cleared" />
   </div> <!-- /package -->

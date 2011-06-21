@@ -1,4 +1,4 @@
-<form id="catalog-edit" class="catalog-form ckan" method="post" 
+<form id="package-edit" class="package-form ckan" method="post" 
   py:attrs="{'class':'has-errors'} if errors else {}"
   xmlns:i18n="http://genshi.edgewall.org/i18n"
   xmlns:py="http://genshi.edgewall.org/"
@@ -12,7 +12,7 @@
 </ul>
 </div>
 
-<fieldset id="catalog-information">
+<fieldset id="basic-information">
   <legend>Catalog Information</legend>
   <dl>
     <dt><label class="field_opt" for="title">Title</label></dt>
@@ -75,6 +75,15 @@
     <a href="http://wiki.okfn.org/ckan/doc/faq#TagConventions">this wiki page</a>.</dd>
     <dd class="hints">e.g [TODO: add example]</dd>
     <dd class="field_error" py:if="errors.get('tag_string', '')">${errors.get('tag_string', '')}</dd>
+
+    <dt class="state" py:if="c.is_sysadmin or c.auth_for_change_state"><label class="field_opt" for="state">State</label></dt>
+    <dd class="state" py:if="c.is_sysadmin or c.auth_for_change_state">
+    <select id="state" name="state" >
+      <option py:attrs="{'selected': 'selected' if data.get('state') == 'active' else None}" value="active">active</option>
+      <option py:attrs="{'selected': 'selected' if data.get('state') == 'deleted' else None}" value="deleted">deleted</option>
+    </select>
+    </dd>
+
   </dl>
 </fieldset>
 
