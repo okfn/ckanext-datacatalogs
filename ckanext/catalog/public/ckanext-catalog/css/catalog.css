@@ -1,3 +1,4 @@
 /* Main CSS for Catalog Extension */
 
+ul.packages { clear: both; }
 #package-edit .state { display: none; }
