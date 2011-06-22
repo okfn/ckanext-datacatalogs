@@ -71,6 +71,7 @@ class CatalogController(PackageController):
             'notes': [ignore_missing, unicode],
             'author': [ignore_missing, unicode],
             'language': [ignore_missing, unicode, convert_to_extras],
+            'spatial_text': [ignore_missing, unicode, convert_to_extras],
             'spatial': [ignore_missing, unicode, convert_to_extras],
             # 'tag_string': [add_catalog_tag, ignore_missing, val.tag_string_convert],
             'tag_string': [ignore_missing, val.tag_string_convert],
@@ -80,6 +81,7 @@ class CatalogController(PackageController):
     def _db_to_form_schema(self):
         return {
             'language': [convert_from_extras, ignore_missing],
+            'spatial_text': [convert_from_extras, ignore_missing],
             'spatial': [convert_from_extras, ignore_missing],
             'extras': {
                 'key': [],

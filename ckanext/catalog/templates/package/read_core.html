@@ -41,9 +41,14 @@
           <td class="package-label">Publisher</td>
           <td class="package-details">${c.pkg_dict['author']}</td>
         </tr>
-        <tr py:for="key, value in c.pkg_extras">
-          <td class="package-label">${_(key)}</td>
-          <td class="package-details">${value}</td>
+        <!-- TODO: search the list of extras for these fields instead of hardcoding the order in here -->
+        <tr>
+          <td class="package-label">Spatial Coverage Text</td>
+          <td class="package-details">${c.pkg_extras[2][1]}</td>
+        </tr>
+        <tr>
+          <td class="package-label">Spatial Coverage</td>
+          <td class="package-details">${c.pkg_extras[1][1]}</td>
         </tr>
       </tbody>
           <caption py:if="h.am_authorized(c, actions.EDIT, c.pkg)">

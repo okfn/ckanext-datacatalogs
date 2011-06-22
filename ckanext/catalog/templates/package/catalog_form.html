@@ -58,10 +58,22 @@
     </dd>
     <dd class="hints">e.g. en es fr</dd>
 
-    <dt><label class="field_opt" for="spatial">Spatial/Geographic Coverage</label></dt>
+    <dt><label class="field_opt" for="spatial_text">Spatial Coverage Text</label></dt>
+    <dd><input id="spatial_text" name="spatial_text" type="text" value="${data.get('spatial_text', '')}"/></dd>
+    <dd class="instructions basic">A free text field describing the spatial/geographic area covered by the catalog.</dd>
+    <dd class="hints">e.g. Greater London</dd>
+    <dd class="field_error" py:if="errors.get('spatial_text', '')">${errors.get('spatial_text', '')}</dd>
+
+    <dt><label class="field_opt" for="spatial">Spatial Coverage</label></dt>
     <dd><input id="spatial" name="spatial" type="text" value="${data.get('spatial', '')}"/></dd>
-    <dd class="instructions basic">The geographic area covered by the catalog.</dd>
-    <dd class="hints">e.g. [TODO: add example]</dd>
+    <dd class="instructions basic">A list of country codes and continents describing the 
+        geographic area covered by the catalog.</dd>
+    <dd class="instructions further">
+    Country codes should be a list of 2-digit 
+    <a href="http://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a> codes.
+    Continents should be specified using their full names. Additionally,
+    the string 'Global' can be given to represent all continents.</dd>
+    <dd class="hints">e.g. GB IE DE</dd>
     <dd class="field_error" py:if="errors.get('spatial', '')">${errors.get('spatial', '')}</dd>
 
     <dt><label class="field_opt" for="tags">Tags</label></dt>
@@ -73,7 +85,7 @@
     <dd class="instructions basic">Terms that may link this catalog to similar ones. 
     For more information on conventions, see 
     <a href="http://wiki.okfn.org/ckan/doc/faq#TagConventions">this wiki page</a>.</dd>
-    <dd class="hints">e.g [TODO: add example]</dd>
+    <dd class="hints">e.g. government-spending </dd>
     <dd class="field_error" py:if="errors.get('tag_string', '')">${errors.get('tag_string', '')}</dd>
 
     <dt class="state" py:if="c.is_sysadmin or c.auth_for_change_state"><label class="field_opt" for="state">State</label></dt>

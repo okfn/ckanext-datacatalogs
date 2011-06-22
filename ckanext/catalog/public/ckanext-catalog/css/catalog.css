@@ -3,3 +3,4 @@
 ul.packages { clear: both; }
 #package-edit .state { display: none; }
 #package-edit dd, #package-edit dl { margin-bottom: 0; }
+div.details.subsection { margin-top: 2em; }
