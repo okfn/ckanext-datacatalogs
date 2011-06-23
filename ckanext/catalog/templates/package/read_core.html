@@ -41,6 +41,21 @@
           <td class="package-label">Publisher</td>
           <td class="package-details">${c.pkg_dict['author']}</td>
         </tr>
+        <tr>
+          <td class="package-label">Metadata License</td>
+          <td class="package-details">
+              <py:choose test="">
+              <py:when test="c.pkg.license and c.pkg.license.url">
+                <a href="${c.pkg.license.url}">${c.pkg.license.title}</a>
+              </py:when>
+              <py:when test="c.pkg.license">${c.pkg.license.title}</py:when>
+              <py:when test="c.pkg.license_id">${c.pkg.license_id}</py:when>
+              <py:otherwise test="">
+                -
+              </py:otherwise>
+              </py:choose>
+          </td>
+        </tr>
         <!-- TODO: search the list of extras for these fields instead of hardcoding the order in here -->
         <tr>
           <td class="package-label">Spatial Coverage Text</td>

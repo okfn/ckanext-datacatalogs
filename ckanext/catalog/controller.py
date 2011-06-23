@@ -70,6 +70,7 @@ class CatalogController(PackageController):
             'url': [not_empty, unicode],
             'notes': [ignore_missing, unicode],
             'author': [ignore_missing, unicode],
+            'license_id': [ignore_missing, unicode],
             'language': [ignore_missing, unicode, convert_to_extras],
             'spatial_text': [ignore_missing, unicode, convert_to_extras],
             'spatial': [ignore_missing, unicode, convert_to_extras],
