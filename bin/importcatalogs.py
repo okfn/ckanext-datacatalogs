@@ -21,6 +21,7 @@ class DataCatalogLoader(SimpleGoogleSpreadsheetLoader):
         url = entity.pop('Homepage*')
         notes = entity.pop('Description*', '')
         author = entity.pop('Publisher', '')
+        license = entity.pop('Metadata License', '') or None
         tags = [x.lower() for x in entity.pop('Keywords', '').split()]
         if self.import_tag:
             tags.append(self.import_tag)
@@ -34,6 +35,7 @@ class DataCatalogLoader(SimpleGoogleSpreadsheetLoader):
             title=title,
             url=url,
             author=author,
+            license=license,
             notes=notes,
             tags=tags,
             extras=extras
