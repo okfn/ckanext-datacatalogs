@@ -25,24 +25,24 @@ from sqlalchemy.orm import eagerload_all
 from autoneg.accept import negotiate
 from ckan import model
 
-CATALOG_TAG = u'data-catalog'
+# CATALOG_TAG = u'data-catalog'
 
-def add_catalog_tag(key, data, errors, context):
-    """
-    Adds a tag with the value of the CATALOG_TAG variable to the tags list if it
-    doesn't already exist
-    """
-    if not CATALOG_TAG in data[key]:
-        data[key] = CATALOG_TAG + u' ' + data[key]
+# def add_catalog_tag(key, data, errors, context):
+#     """
+#     Adds a tag with the value of the CATALOG_TAG variable to the tags list if it
+#     doesn't already exist
+#     """
+#     if not CATALOG_TAG in data[key]:
+#         data[key] = CATALOG_TAG + u' ' + data[key]
 
-def remove_catalog_tag(key, data, errors, context):
-    """
-    Sets the tag with the value in the CATALOG_TAG variable to the empty string
-    """
-    for data_key, data_value in data.iteritems():
-        if (data_key[0] == 'tags' and data_key[-1] == 'name'
-            and data_value == CATALOG_TAG):
-            data[data_key] = u''
+# def remove_catalog_tag(key, data, errors, context):
+#     """
+#     Sets the tag with the value in the CATALOG_TAG variable to the empty string
+#     """
+#     for data_key, data_value in data.iteritems():
+#         if (data_key[0] == 'tags' and data_key[-1] == 'name'
+#             and data_value == CATALOG_TAG):
+#             data[data_key] = u''
 
 def convert_to_extras(key, data, errors, context):
     extras = data.get(('extras',), [])
