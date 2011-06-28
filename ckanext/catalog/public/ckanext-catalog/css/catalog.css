@@ -6,3 +6,4 @@ ul.packages { clear: both; }
 #package-edit select { margin-bottom: 0.5em; }
 div.details.subsection { margin-top: 2em; }
 #site-generator a { padding-left: 0; }
+#content #curators-heading { margin-top: 2em; }
