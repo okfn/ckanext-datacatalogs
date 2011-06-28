@@ -27,8 +27,8 @@ class DataCatalogLoader(SimpleGoogleSpreadsheetLoader):
             tags.append(self.import_tag)
         extras = {
             'spatial_text': entity.pop('Spatial Coverage Text', ''),
-            'spatial': entity.pop('Spatial Coverage', ''),
-            'language': entity.pop('Language', '')
+            'spatial': entity.pop('Spatial Coverage', '').lower(),
+            'language': entity.pop('Language', '').lower()
         }
         package = self.create_package(
             name,
