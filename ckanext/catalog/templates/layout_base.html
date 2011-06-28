@@ -179,61 +179,8 @@
         <!--   </div> -->
         <!--   </li> -->
         <!-- </ul> -->
-<!--         <ul class="xoxo"> -->
-<!--           <li class="widget-container widget_text"> -->
-<!--           <h3 class="widget-title">Language</h3> -->
-<!--           <div class="textwidget"> -->
-<!--             <ul> -->
-<!-- <?python -->
-<!--   import ckan.lib.hash -->
-<!--   current_url = url.current().encode('utf-8') -->
-<!--   current_url_hash = ckan.lib.hash.get_message_hash(current_url) -->
-<!-- ?> -->
-<!--               <li py:for="locale in h.get_available_locales()"> -->
-<!--               <a href="${url(controller='home', action='locale',  -->
-<!--                              locale=str(locale),  -->
-<!--                              return_to=current_url, -->
-<!--                              hash=current_url_hash)}"> -->
-<!--                   ${locale.display_name} -->
-<!--                 </a> -->
-<!--               </li> -->
-<!--             </ul> -->
-<!--           </div> -->
-<!--           </li> -->
-<!--         </ul> -->
 
       </div><!-- #first .widget-area -->
-
-      <div id="fourth" class="widget-area">
-        <ul class="xoxo">
-          <li class="widget-container widget_text">
-          <h3 class="widget-title">Credits</h3>
-          <div class="textwidget">
-            <ul>
-              <li i18n:msg="">
-                <img src="http://assets.okfn.org/images/logo/okf_logo_white_and_green_tiny.png" id="footer-okf-logo" />
-                An
-                <a href="http://www.okfn.org/">Open Knowledge Foundation</a> Project
-              </li>
-              <li>
-                &copy; <a href="http://www.okfn.org/">Open Knowledge Foundation</a>
-              </li>
-              <li>
-                <a href="http://www.opendefinition.org/okd/">
-                <img alt="This Content and Data is Open" src="http://assets.okfn.org/images/ok_buttons/oc_80x15_blue.png" style="border: none ; margin-bottom: -4px;"/>
-                </a>
-              </li>
-              <li>
-                <a href="http://www.opendefinition.org/okd/">
-                <img alt="This Content and Data is Open" src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" style="border: none ; margin-bottom: -4px;"/>
-                </a>
-              </li>
-            </ul>
-          </div>
-          </li>
-        </ul>
-      </div><!-- #fourth .widget-area -->
-
     </div><!-- #footer-widget-area -->
 
     <div id="site-info">
@@ -242,6 +189,9 @@
     </div><!-- #site-info -->
 
     <div id="site-generator">
+      <a href="http://www.opendefinition.org/okd/">
+        <img alt="This Content and Data is Open" src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" style="border: none ; margin-bottom: -4px;"/>
+      </a>
       <a href="http://ckan.org/"
         title="CKAN" rel="generator">
         Powered by CKAN
