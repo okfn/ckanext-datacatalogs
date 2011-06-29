@@ -71,6 +71,7 @@ class CatalogController(PackageController):
             'author': [ignore_missing, unicode],
             'license_id': [ignore_missing, unicode],
             'language': [ignore_missing, unicode, convert_to_extras],
+            'state': [val.ignore_not_admin, ignore_missing],
             'spatial_text': [ignore_missing, unicode, convert_to_extras],
             'spatial': [ignore_missing, unicode, convert_to_extras],
             # 'tag_string': [add_catalog_tag, ignore_missing, val.tag_string_convert],
