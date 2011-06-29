@@ -4,9 +4,6 @@
 #
 # sudo apt-get install XXX
 
-# Requires CKAN
--e hg+https://bitbucket.org/okfn/ckanext-moderatededits@default#egg=ckan
-
 # NOTE: Developers, please do not edit the versions, these versions are fixed
 #       in Lucid. If you start to depend on a different vesion you'll need to
 #       remove the version here and package your version as a conflict.

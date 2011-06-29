@@ -5,6 +5,9 @@
 -e hg+https://bitbucket.org/okfn/ckan@feature-1141-moderated-edits-ajax#egg=ckan
 # Python apachemiddleware
 -e hg+https://hg.3aims.com/public/ApacheMiddleware@c5ab5c3169a5#egg=apachemiddleware
+# Requires CKAN
+-e hg+https://bitbucket.org/okfn/ckanext-moderatededits@default#egg=ckan
+
 
 
 
