@@ -1,0 +1,9 @@
+# These CKAN dependencies are already in Lucid and should be installed via
+# apt-get if you are on that platform. If you are using a different platform
+# you can install these dependencies via pip instead.
+#
+# sudo apt-get install XXX
+
+# NOTE: Developers, please do not edit the versions, these versions are fixed
+#       in Lucid. If you start to depend on a different vesion you'll need to
+#       remove the version here and package your version as a conflict.

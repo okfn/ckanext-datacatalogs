@@ -1,0 +1,4 @@
+#!/bin/bash
+# . /usr/bin/ckan-catalog-install
+# Uncomment the line above to have ckan-std installed automatically
+
