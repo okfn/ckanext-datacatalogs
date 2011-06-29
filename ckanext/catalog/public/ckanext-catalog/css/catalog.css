@@ -8,16 +8,18 @@ div.details.subsection { margin-top: 2em; }
 #content #curators-heading { margin-top: 2em; }
 
 /* Link colours */
-#access ul li a { color: #006699; }
+/* light: #00A9D9 */
+/* dark: #006699 */
+#access ul li a { color: #00a9d9; }
 a { 
-    color: #006699; 
+    color: #00a9d9; 
     text-decoration: none;
 }
 a:link {
-    color: #006699; 
+    color: #00a9d9; 
     text-decoration: none;
 }
 a:visited {
-    color: #006699; 
+    color: #00a9d9; 
     text-decoration: none;
 }
