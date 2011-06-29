@@ -6,3 +6,18 @@ ul.packages { clear: both; }
 div.details.subsection { margin-top: 2em; }
 #site-generator a { padding-left: 0; }
 #content #curators-heading { margin-top: 2em; }
+
+/* Link colours */
+#access ul li a { color: #006699; }
+a { 
+    color: #006699; 
+    text-decoration: none;
+}
+a:link {
+    color: #006699; 
+    text-decoration: none;
+}
+a:visited {
+    color: #006699; 
+    text-decoration: none;
+}
