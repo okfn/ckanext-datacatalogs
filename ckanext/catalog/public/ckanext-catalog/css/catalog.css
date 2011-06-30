@@ -30,3 +30,10 @@ a:visited {
     color: #333;
     border: 1px solid #00a9d9;
 }
+#main .widget-area ul ul { margin-left: 0; }
+#side-recently-changed ul { margin-bottom: 2em; }
+#side-recently-changed .title { font-weight: bold; }
+#side-recently-changed li { 
+    list-style-type: none; 
+    margin-bottom: 1em;
+}
