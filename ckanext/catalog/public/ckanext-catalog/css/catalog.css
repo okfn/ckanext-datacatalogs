@@ -8,7 +8,7 @@ div.details.subsection { margin-top: 2em; }
 #content #curators-heading { margin-top: 2em; }
 
 /* Link colours */
-/* light: #00A9D9 */
+/* light: #00a9d9 */
 /* dark: #006699 */
 #access ul li a { color: #00a9d9; }
 a { 
@@ -22,4 +22,11 @@ a:link {
 a:visited {
     color: #00a9d9; 
     text-decoration: none;
+}
+
+/* side bar panels */
+#primary .widget-container {
+    background: #b4e6fa;
+    color: #333;
+    border: 1px solid #00a9d9;
 }
