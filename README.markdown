@@ -1,7 +1,7 @@
 CKAN Catalog Extension
 ======================
 
-**Current Status:** Incomplete
+**Current Status:** Beta
 
 Installation and Activation
 ---------------------------
