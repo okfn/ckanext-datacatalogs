@@ -29,7 +29,7 @@ You should also add the following to the app:main section of your config file:
     package_edit_return_url = /catalog/<NAME>
     package_new_return_url = /catalog/<NAME>
 
-To prevent non-system admins from being able to create packages, run:
+To prevent non-sysadmins from being able to create packages, run:
 
     paster roles -c datacatalogs.ini deny anon_editor create-package
     paster roles -c datacatalogs.ini deny editor create-package
