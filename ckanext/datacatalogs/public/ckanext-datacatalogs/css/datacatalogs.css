@@ -6,7 +6,9 @@ ul.packages { clear: both; }
 div.details.subsection { margin-top: 2em; }
 #site-generator a { padding-left: 0; }
 #content #curators-heading { margin-top: 2em; }
+#content { border-right: 0 }
 body { font-size: 14px; }
+
 
 /* top */
 .header.outer { 
@@ -20,6 +22,7 @@ header .menu a:hover { text-decoration: underline; }
 .menu.account { float: none; }
 header .menu #menusearch { float: none; }
 .menu-search-account { float: right; }
+#minornavigation { border: 0; }
 
 /* bottom */
 .footer.outer {
@@ -48,15 +51,54 @@ a:visited {
 a:hover { text-decoration: underline; }
 
 /* side bar panels */
-#primary .widget-container {
+/* #primary .widget-container { */
+ul.widget-list li.widget-container.boxed {
     background: #b4e6fa;
     color: #333;
     border: 1px solid #00a9d9;
+    /* font-size: 12px; */
 }
 #main .widget-area ul ul { margin-left: 0; }
-#side-recently-changed ul { margin-bottom: 2em; }
+#side-recently-changed ul { 
+    margin-bottom: 2em; 
+    padding-left: 0em; 
+}
 #side-recently-changed .title { font-weight: bold; }
 #side-recently-changed li { 
     list-style-type: none; 
     margin-bottom: 1em;
 }
+
+/* home page search widget */
+body.index.home .front-page .action-box {
+  border-radius: 20px;
+  background:  #ffffff;
+}
+body.index.home .front-page .action-box-inner { margin: 0px; }
+
+/* home page */
+#datacatalogs-home-overview { width: 650px; }
+
+body.index .front-page .action-box-inner {
+    min-height: 8em;
+}
+
+body.index .front-page .action-box-inner.find {
+  background:url(/img/find.png) no-repeat right top;
+}
+
+body.index .front-page .action-box-inner a {
+  font-weight: bold;
+}
+
+body.index .front-page .action-box-inner input {
+  border-radius: 10px;
+  background-color: #fff;
+  border: 0px;
+  font-size: 1.3em;
+  width: 90%;
+  border: 1px solid #999;
+  color: #666;
+  padding: 0.5em;
+}
+

@@ -98,4 +98,7 @@ class DataCatalogsPlugin(SingletonPlugin):
         map.connect('/catalog/{action}/{id}/{revision}', 
                     controller='ckanext.datacatalogs.controller:DataCatalogsController', 
                     action='read_ajax')
+        map.connect('home', '/',
+                    controller='ckanext.datacatalogs.controller:DataCatalogsHomeController',
+                    action='index')
         return map

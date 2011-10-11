@@ -5,23 +5,16 @@ from logging import getLogger
 log = getLogger(__name__)
 
 from pylons.i18n import _
-from pylons.decorators import jsonify
 from pylons import request, tmpl_context as c
-from pylons import config, cache
-from ckan.lib.base import BaseController, response, render, abort, h, g
-from ckan.lib.base import etag_cache, response, redirect, gettext
-from ckan.lib.package_saver import PackageSaver, ValidationException
-from ckan.lib.cache import proxy_cache
+from ckan.lib.base import render, abort, h, g, etag_cache
 from ckan.lib.search import query_for, SearchError
-from ckan.controllers.package import PackageController, autoneg_cfg, search_url
+from ckan.controllers import home
+from ckan.controllers.package import PackageController, search_url
 from ckan.lib.navl.validators import (
     ignore_missing, not_empty, ignore, keep_extras
 )
-import ckan.logic.action.get as get
 import ckan.logic.validators as val
-from ckan.logic import NotFound, NotAuthorized, ValidationError
-from sqlalchemy.orm import eagerload_all
-from autoneg.accept import negotiate
+from ckan.logic.action import get
 from ckan import model
 
 def convert_to_extras(key, data, errors, context):
@@ -151,3 +144,26 @@ class DataCatalogsController(PackageController):
             c.page = h.Page(collection=[])
         
         return render('package/search.html')
+
+
+class DataCatalogsHomeController(home.HomeController):
+    @home.proxy_cache(expires=home.cache_expires)
+    def index(self):
+        cache_key = self._home_cache_key()
+        etag_cache(cache_key)
+
+        try:
+            query = query_for(model.Package)
+            query.run({'q': '*:*'})
+            c.package_count = query.count
+            c.latest_packages = get.current_package_list_with_resources(
+                {'model': model, 'user': c.user},
+                {'limit': 5}
+            )  
+        except SearchError, se:
+            c.package_count = 0
+            c.latest_packages = []
+
+        return render('home/index.html')
+        return render('home/index.html', cache_key=cache_key,
+                      cache_expire=home.cache_expires)
