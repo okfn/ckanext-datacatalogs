@@ -1,4 +1,4 @@
-/* Main CSS for Catalog Extension */
+/* CSS changes for ckanext-datacatalogs extension */
 
 ul.packages { clear: both; }
 #package-edit dd, #package-edit dl { margin-bottom: 0; }
@@ -6,6 +6,22 @@ ul.packages { clear: both; }
 div.details.subsection { margin-top: 2em; }
 #site-generator a { padding-left: 0; }
 #content #curators-heading { margin-top: 2em; }
+
+/* top */
+.header.outer { 
+    background-color: #ffffff; 
+    background-image: none;
+    border-bottom: 0;
+    box-shadow: 0 0 2px 15px #ffffff;
+}
+header .menu #mainmenu { margin-top: 2em; display: block; }
+header .menu a:hover { text-decoration: underline; }
+
+/* bottom */
+.footer.outer {
+    background-color: #ffffff; 
+    background-image: none;
+}
 
 /* Link colours */
 /* light: #00a9d9 */
@@ -23,6 +39,7 @@ a:visited {
     color: #00a9d9; 
     text-decoration: none;
 }
+a:hover { text-decoration: underline; }
 
 /* side bar panels */
 #primary .widget-container {
