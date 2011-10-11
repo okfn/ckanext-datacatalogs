@@ -6,6 +6,7 @@ ul.packages { clear: both; }
 div.details.subsection { margin-top: 2em; }
 #site-generator a { padding-left: 0; }
 #content #curators-heading { margin-top: 2em; }
+body { font-size: 14px; }
 
 /* top */
 .header.outer { 
@@ -14,14 +15,19 @@ div.details.subsection { margin-top: 2em; }
     border-bottom: 0;
     box-shadow: 0 0 2px 15px #ffffff;
 }
-header .menu #mainmenu { margin-top: 2em; display: block; }
+header .menu #mainmenu { margin-top: 60px; display: block; }
 header .menu a:hover { text-decoration: underline; }
+.menu.account { float: none; }
+header .menu #menusearch { float: none; }
+.menu-search-account { float: right; }
 
 /* bottom */
 .footer.outer {
     background-color: #ffffff; 
     background-image: none;
 }
+.span-6 { width: 100%; }
+
 
 /* Link colours */
 /* light: #00a9d9 */

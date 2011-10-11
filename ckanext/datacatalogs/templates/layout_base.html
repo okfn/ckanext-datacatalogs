@@ -55,25 +55,29 @@
         <a href="${url('home')}">
           <img width="350" src="${g.site_logo}" alt="${g.site_title} Logo" title="${g.site_title} Logo" id="logo" />
         </a>
-        <div id="site-name">
-          &nbsp;
-        </div>
-        <div class="menu account">
-          <span class="ckan-logged-in" style="display: none;">
-            <a href="${h.url_for(controller='user',action='me',id=None)}">${h.icon('user')} My account</a>
-            <a href="${h.url_for('/user/logout')}">Logout</a>
-          </span>
-          <span class="ckan-logged-out">
-            <a href="${h.url_for(controller='user',action='login', id=None)}">Login</a>
-            <a href="${h.url_for(controller='user',action='register', id=None)}">Register</a>
-          </span>
-        </div>
-        <div class="menu">
+        <!-- <div id="site-name"> -->
+          <!-- &nbsp;  -->
+        <!-- </div> -->
+
+        <span class="menu-search-account">
+          <div class="menu account">
+            <span class="ckan-logged-in" style="display: none;">
+              <a href="${h.url_for(controller='user',action='me',id=None)}">${h.icon('user')} My account</a>
+              <a href="${h.url_for('/user/logout')}">Logout</a>
+            </span>
+            <span class="ckan-logged-out">
+              <a href="${h.url_for(controller='user',action='login', id=None)}">Login</a>
+              <a href="${h.url_for(controller='user',action='register', id=None)}">Register</a>
+            </span>
+          </div>
           <span id="menusearch">
             <form action="${url(controller='package', action='search')}" method="GET">
               <input name="q" value="${c.q if hasattr(c, 'q') else ''}" class="search" placeholder="${_('Find data catalogs')}" />
             </form>
           </span>
+        </span>
+
+        <div class="menu">
           <div id="mainmenu">
             ${h.nav_link(c, _('Browse'), controller='package', action='index', id=None, highlight_actions = 'new index')}
             <span py:if="h.check_access('package_create')">${h.nav_link(c, _('Add A Catalog'), controller='ckanext.datacatalogs.controller:DataCatalogsController', action='new', id=None)}</span>
@@ -123,7 +127,7 @@
     <footer class="container">
         <div class="xoxo span-6 last">
           <p id="credits">
-            Licensed under the <a href="http://opendatacommons.org/licenses/odbl/1.0/">Open Database License</a>
+            <!-- Licensed under the <a href="http://opendatacommons.org/licenses/odbl/1.0/">Open Database License</a> -->
             <a href="http://opendefinition.org/"><img alt="This Content and Data is Open" src="http://assets.okfn.org/images/ok_buttons/od_80x15_blue.png" style="border: none ; margin-bottom: -4px;"/></a>
         Powered by <a href="http://ckan.org">CKAN</a> v${c.__version__}.<br/>
           </p>
