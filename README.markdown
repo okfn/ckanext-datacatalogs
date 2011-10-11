@@ -25,7 +25,7 @@ Configuration
 You should also add the following to the app:main section of your config file:
 
     ckan.site_title = datacatalogs.org
-    ckan.site_logo = /ckanext-catalog/images/datacatalogs.png
+    ckan.site_logo = /ckanext-datacatalogs/images/datacatalogs.png
     package_edit_return_url = /catalog/<NAME>
     package_new_return_url = /catalog/<NAME>
 
