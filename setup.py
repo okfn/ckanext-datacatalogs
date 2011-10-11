@@ -1,34 +1,33 @@
 from setuptools import setup, find_packages
 
 version = '0.1'
-from ckanext.catalog import __doc__ as long_description
+from ckanext.datacatalogs import __doc__ as long_description
 
 setup(
-	name='ckanext-catalog',
+	name='ckanext-datacatalogs',
 	version=version,
 	description=long_description.split('\n')[0],
 	long_description=long_description,
-	classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+	classifiers=[],
 	keywords='',
 	author='John Glover',
-	author_email='j@johnglover.net',
+	author_email='john.glover@okfn.org',
 	url='',
 	license='mit',
     packages=find_packages(exclude=['tests']),
-    namespace_packages=['ckanext', 'ckanext.catalog'],
-    package_data = {'ckanext.catalog' : ['public/ckanext-catalog/*.js', 
-                                         'public/ckanext-catalog/css/*.css',
-                                         'public/ckanext-catalog/images/*.png',
-                                         'templates/*.html',
-                                         'templates/package*.html']},
+    namespace_packages=['ckanext', 'ckanext.datacatalogs'],
+    package_data = {'ckanext.datacatalogs' : ['public/ckanext-datacatalogs/*.js', 
+                                              'public/ckanext-datacatalogs/css/*.css',
+                                              'public/ckanext-datacatalogs/images/*.png',
+                                              'templates/*.html',
+                                              'templates/package*.html']},
 	include_package_data=True,
 	zip_safe=False,
-	install_requires=[
-		# -*- Extra requirements: -*-
-	],
+	install_requires=[],
 	entry_points=\
 	"""
     [ckan.plugins]
-	catalog=ckanext.catalog.plugin:CatalogPlugin
-	""",
+	datacatalogs=ckanext.datacatalogs.plugin:DataCatalogsPlugin
+	"""
 )
+

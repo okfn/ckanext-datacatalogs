@@ -9,12 +9,12 @@ Installation and Activation
 
 To install the plugin, enter your virtualenv and install the source:
 
-    $ pip install hg+http://bitbucket.org/okfn/ckanext-catalog
+    $ pip install hg+http://bitbucket.org/okfn/ckanext-datacatalogs
 
 This will also register a plugin entry point, so you now should be 
 able to add the following to your CKAN .ini file:
 
-    ckan.plugins = catalog
+    ckan.plugins = datacatalogs
  
 After you reload the site the plugin should be available. 
 
@@ -39,3 +39,4 @@ Tests
 From the ckanext-catalog directory, run:
 
     $ nosetests --ckan
+

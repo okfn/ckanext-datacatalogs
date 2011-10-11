@@ -97,11 +97,11 @@
       <div class="menu">
         <ul>
           <li>${h.nav_link(c, _('Home'), controller='home', action='index', id=None)}</li>
-          <li>${h.nav_link(c, _('Browse'), controller='ckanext.catalog.controller:CatalogController', action='index', id=None, highlight_actions = 'search index')}</li>
+          <li>${h.nav_link(c, _('Browse'), controller='ckanext.datacatalogs.controller:DataCatalogsController', action='index', id=None, highlight_actions = 'search index')}</li>
 <?python
     am_authorized_package_create = h.am_authorized(c, actions.PACKAGE_CREATE)
 ?>
-          <li py:if="am_authorized_package_create">${h.nav_link(c, _('Add A Catalog'), controller='ckanext.catalog.controller:CatalogController', action='new', id=None)}</li>
+          <li py:if="am_authorized_package_create">${h.nav_link(c, _('Add A Catalog'), controller='ckanext.datacatalogs.controller:DataCatalogsController', action='new', id=None)}</li>
           <!-- <li>${h.nav_link(c, _('Tags'), controller='tag', action='index', id=None)}</li> -->
           <li>${h.nav_link(c, _('About'), controller='home', action='about', id=None)}</li>
       </ul>

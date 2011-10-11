@@ -1,5 +1,5 @@
 """
-CKAN Catalog Extension
+CKAN DataCatalogs Extension
 """
 from logging import getLogger
 log = getLogger(__name__)
@@ -24,25 +24,6 @@ from sqlalchemy.orm import eagerload_all
 from autoneg.accept import negotiate
 from ckan import model
 
-# CATALOG_TAG = u'data-catalog'
-
-# def add_catalog_tag(key, data, errors, context):
-#     """
-#     Adds a tag with the value of the CATALOG_TAG variable to the tags list if it
-#     doesn't already exist
-#     """
-#     if not CATALOG_TAG in data[key]:
-#         data[key] = CATALOG_TAG + u' ' + data[key]
-
-# def remove_catalog_tag(key, data, errors, context):
-#     """
-#     Sets the tag with the value in the CATALOG_TAG variable to the empty string
-#     """
-#     for data_key, data_value in data.iteritems():
-#         if (data_key[0] == 'tags' and data_key[-1] == 'name'
-#             and data_value == CATALOG_TAG):
-#             data[data_key] = u''
-
 def convert_to_extras(key, data, errors, context):
     extras = data.get(('extras',), [])
     if not extras:
@@ -56,9 +37,9 @@ def convert_from_extras(key, data, errors, context):
             and data_value == key[-1]):
             data[key] = data[('extras', data_key[1], 'value')]
 
-class CatalogController(PackageController):
+class DataCatalogsController(PackageController):
     """
-    The ckanext-catalog Controller.
+    The ckanext-datacatalogs Controller.
     """
     package_form = 'package/catalog_form.html'
 
@@ -74,7 +55,6 @@ class CatalogController(PackageController):
             'state': [val.ignore_not_admin, ignore_missing],
             'spatial_text': [ignore_missing, unicode, convert_to_extras],
             'spatial': [ignore_missing, unicode, convert_to_extras],
-            # 'tag_string': [add_catalog_tag, ignore_missing, val.tag_string_convert],
             'tag_string': [ignore_missing, val.tag_string_convert],
             '__extras': [ignore],
         }
@@ -90,7 +70,6 @@ class CatalogController(PackageController):
                 '__extras': [keep_extras]
             },
             'tags': {
-                # 'name': [remove_catalog_tag],
                 '__extras': [keep_extras]
             },
             '__extras': [keep_extras],

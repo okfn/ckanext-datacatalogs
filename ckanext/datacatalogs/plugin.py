@@ -1,8 +1,8 @@
 """
-Catalog is a CKAN extension - http://ckan.org/wiki/Extensions.
+DataCatalogs is a CKAN extension - http://ckan.org/wiki/Extensions.
 Enable by adding to your ckan.plugins line in the CKAN config::
 
-    ckan.plugins = catalog
+    ckan.plugins = datacatalogs
 """
 import os
 from logging import getLogger
@@ -13,7 +13,7 @@ from ckan.lib.base import h
 from ckan.plugins import SingletonPlugin, implements
 from ckan.plugins.interfaces import IConfigurable, IRoutes, IConfigurer
 
-class CatalogPlugin(SingletonPlugin):
+class DataCatalogsPlugin(SingletonPlugin):
     """
     Plugin
     """
@@ -56,22 +56,22 @@ class CatalogPlugin(SingletonPlugin):
         Setup routing.
         """
         map.connect('catalog_list', '/catalogs',
-                    controller='ckanext.catalog.controller:CatalogController',
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController',
                     action='list')
         map.connect('catalog_new', '/catalog/new',
-                    controller='ckanext.catalog.controller:CatalogController',
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController',
                     action='new')
         map.connect('catalog_edit', '/catalog/edit/{id}', 
-                    controller='ckanext.catalog.controller:CatalogController', 
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController', 
                     action='edit')
         map.connect('catalog_read', '/catalog/{id}', 
-                    controller='ckanext.catalog.controller:CatalogController', 
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController', 
                     action='read')
         map.connect('catalog_history', '/catalog/history/{id}', 
-                    controller='ckanext.catalog.controller:CatalogController', 
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController', 
                     action='history')
         map.connect('/catalog/{action}/{id}',
-                    controller='ckanext.catalog.controller:CatalogController', 
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController', 
                     requirements=dict(action='|'.join([
                         'edit',
                         'authz',
@@ -81,13 +81,13 @@ class CatalogPlugin(SingletonPlugin):
                     ]))
         )
         map.connect('catalog_search', '/catalog',  
-                    controller='ckanext.catalog.controller:CatalogController', 
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController', 
                     action='search')
         map.connect('catalog_index', '/catalog',  
-                    controller='ckanext.catalog.controller:CatalogController', 
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController', 
                     action='index')
         map.connect('/catalog/{action}',
-                    controller='ckanext.catalog.controller:CatalogController', 
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController', 
                     requirements=dict(action='|'.join([
                         'list',
                         'new',
@@ -96,6 +96,6 @@ class CatalogPlugin(SingletonPlugin):
                     ]))
         )
         map.connect('/catalog/{action}/{id}/{revision}', 
-                    controller='ckanext.catalog.controller:CatalogController', 
+                    controller='ckanext.datacatalogs.controller:DataCatalogsController', 
                     action='read_ajax')
         return map
