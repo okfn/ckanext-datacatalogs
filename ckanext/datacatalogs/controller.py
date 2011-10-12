@@ -5,8 +5,8 @@ from logging import getLogger
 log = getLogger(__name__)
 
 from pylons.i18n import _
-from pylons import request, tmpl_context as c
-from ckan.lib.base import render, abort, h, g, etag_cache
+from pylons import tmpl_context as c, config
+from ckan.lib.base import render, etag_cache, h, redirect, request
 from ckan.lib.search import query_for, SearchError
 from ckan.controllers import home
 from ckan.controllers import package
@@ -70,6 +70,25 @@ class DataCatalogsController(package.PackageController):
 
     def _check_data_dict(self, data_dict):
         return
+    
+    def _form_save_redirect(self, pkgname, action):
+        '''This redirects the user to the CKAN package/read page,
+        unless there is request parameter giving an alternate location,
+        perhaps an external website.
+        @param pkgname - Name of the package just edited
+        @param action - What the action of the edit was
+        '''
+        assert action in ('new', 'edit')
+        if action == 'new':
+            msg = _('<span class="new-dataset">Your catalog has been created.</span>')
+            h.flash_success(msg, allow_html=True)
+        url = request.params.get('return_to') or \
+              config.get('package_%s_return_url' % action)
+        if url:
+            url = url.replace('<NAME>', pkgname)
+        else:
+            url = h.url_for(controller='package', action='read', id=pkgname)
+        redirect(url)        
 
 
 class DataCatalogsHomeController(home.HomeController):
