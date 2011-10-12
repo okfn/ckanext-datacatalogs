@@ -100,3 +100,12 @@ body.index .front-page .action-box-inner input {
   padding: 0.5em;
 }
 
+fieldset { 
+    border-bottom: 0; 
+    margin-bottom: 0.5em; 
+}
+#generic_form { margin-bottom: 3em; }
+#login-submit { margin-left: 1em; }
+#openid_form { border-bottom: 1px solid #E0E0E0; }
+#no-openid { margin-top: 2em; }
+
