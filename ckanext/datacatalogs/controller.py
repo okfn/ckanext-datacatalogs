@@ -11,7 +11,7 @@ from ckan.lib.search import query_for, SearchError
 from ckan.controllers import home
 from ckan.controllers import package
 from ckan.lib.navl.validators import (
-    ignore_missing, not_empty, ignore, keep_extras
+    ignore_missing, empty, not_empty, ignore, keep_extras
 )
 import ckan.logic.validators as val
 from ckan.logic.action import get
@@ -50,6 +50,11 @@ class DataCatalogsController(package.PackageController):
             'spatial': [ignore_missing, unicode, convert_to_extras],
             'tag_string': [ignore_missing, val.tag_string_convert],
             '__extras': [ignore],
+            'groups': {
+                'id': [ignore_missing, unicode],
+                '__extras': [empty],
+                'name': [ignore, unicode],
+            }
         }
 
     def _db_to_form_schema(self):
@@ -66,6 +71,11 @@ class DataCatalogsController(package.PackageController):
                 '__extras': [keep_extras]
             },
             '__extras': [keep_extras],
+            'groups': {
+                'id': [],
+                '__extras': [ignore_missing],
+                'name': [],
+            }
         }
 
     def _check_data_dict(self, data_dict):
