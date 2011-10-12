@@ -50,10 +50,17 @@
               </py:choose>
           </td>
         </tr>
-        <!-- TODO: search the list of extras for fields instead of hardcoding the order in here -->
         <tr>
           <td class="package-label">Spatial Coverage</td>
-          <td class="package-details">${c.pkg_extras[2][1]}</td>
+          <td class="package-details">
+            <py:for each="extra in c.pkg_dict.get('extras')">
+              <py:choose test="">
+              <py:when test="extra.get('key') == u'spatial_text'">
+                ${extra.get('value')}
+              </py:when>
+              </py:choose>
+            </py:for>
+          </td>
         </tr>
       </tbody>
           <caption py:if="h.am_authorized(c, actions.EDIT, c.pkg)">
