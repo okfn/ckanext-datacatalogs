@@ -86,11 +86,10 @@
     <dd class="hints">e.g. gb ie de</dd>
     <dd class="field_error" py:if="errors.get('spatial', '')">${errors.get('spatial', '')}</dd>
 
-    <dt><label class="field_opt" for="tags">Tags</label></dt>
-    <dd>
-      <input class="long tagComplete" data-tagcomplete-queryparam="incomplete" 
-               data-tagcomplete-url="/api/2/util/tag/autocomplete" id="tag_string" name="tag_string" size="60" type="text" 
-               value="${data.get('tag_string') or ' '.join([tag['name'] for tag in data.get('tags', []) if tag['name']])}" />
+    <dt class="tags-label"><label class="field_opt" for="tags">Tags</label></dt>
+    <dd class="tags-field">
+      <input class="long autocomplete-tag" tabindex="5" id="tag_string" name="tag_string" size="60" type="text" 
+               value="${data.get('tag_string') or ' '.join([tag['name'] for tag in data.get('tags', [])])}" />
     </dd>
     <dd class="instructions basic">Terms that may link this catalog to similar ones. 
     For more information on conventions, see 
