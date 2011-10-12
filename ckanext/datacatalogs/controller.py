@@ -109,7 +109,6 @@ class DataCatalogsHomeController(home.HomeController):
             c.package_count = 0
             c.latest_packages = []
 
-        return render('home/index.html')
         return render('home/index.html', cache_key=cache_key,
                       cache_expire=home.cache_expires)
 
