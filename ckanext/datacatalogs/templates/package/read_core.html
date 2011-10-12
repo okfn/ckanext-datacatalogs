@@ -7,12 +7,6 @@
     <!-- Title -->
     <h2 class="head">
       ${c.pkg_dict.get('title','')}
-      <p class="atom-feed-link package-history-link">
-        <a
-          href="${url(controller='ckanext.datacatalogs.controller:DataCatalogsController', action='history', id=c.pkg.name, format='atom', days=7)}"
-          title="${g.site_title} - Catalog History - ${c.pkg.name}">
-          Subscribe &raquo;</a>
-      </p>
     </h2>
 
     <py:def function="details_item(label, value)">
