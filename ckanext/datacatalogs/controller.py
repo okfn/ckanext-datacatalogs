@@ -190,8 +190,8 @@ class DataCatalogsGroupController(group.GroupController):
         query = model.Session.query(model.PackageRevision)\
             .filter(model.PackageRevision.state=='active')\
             .filter(model.PackageRevision.current==True)\
-            .join(model.PackageGroup, model.PackageGroup.package_id==model.PackageRevision.id)\
-            .join(model.Group, model.Group.id==model.PackageGroup.group_id)\
+            .join((model.PackageGroup, model.PackageGroup.package_id==model.PackageRevision.id))\
+            .join((model.Group, model.Group.id==model.PackageGroup.group_id))\
             .filter_by(id=context['group'].id)
         query = query.order_by(model.package_revision_table.c.revision_timestamp.desc())
         pack_rev = query.all()
