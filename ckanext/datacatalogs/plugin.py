@@ -106,4 +106,8 @@ class DataCatalogsPlugin(SingletonPlugin):
         map.connect('home', '/',
                     controller='ckanext.datacatalogs.controller:DataCatalogsHomeController',
                     action='index')
+
+        map.connect('/group/{id}', 
+                    controller='ckanext.datacatalogs.controller:DataCatalogsGroupController', 
+                    action='read')
         return map
