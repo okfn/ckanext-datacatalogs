@@ -55,10 +55,8 @@ class DataCatalogsPlugin(SingletonPlugin):
         """
         Setup routing.
         """
-        # map.redirect("/packages", "/catalog")
-        # map.redirect("/package/{url:.*}", "/catalog/{url}")
         # map.redirect("/dataset", "/catalog")
-        # map.redirect("/dataset/{url:.*}", "/catalog/{url}")
+        map.redirect("/dataset/{url:.*}", "/catalog/{url}")
 
         map.connect('catalog_list', '/catalogs',
                     controller='ckanext.datacatalogs.controller:DataCatalogsController',
