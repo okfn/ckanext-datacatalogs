@@ -8,6 +8,15 @@
 
   <py:def function="body_class">hide-sidebar</py:def>
 
+  <py:def function="optional_footer">
+    <!-- Auto-generate 'name' field -->
+    <script type="text/javascript">
+      CKAN.Utils.setupUrlEditor('package');
+      $('#save').val(CKAN.Strings.addDataset);
+      $("#title").focus();
+    </script>
+  </py:def>
+  
   <div py:match="content">
     <h3 py:if="c.error" class="form-errors">
       Error: ${c.error}
