@@ -49,12 +49,10 @@ a:visited {
 a:hover { text-decoration: underline; }
 
 /* side bar panels */
-/* #primary .widget-container { */
-ul.widget-list li.widget-container.boxed {
+#sidebar .widget-list li.widget-container.boxed {
     background: #b4e6fa;
     color: #333;
     border: 1px solid #00a9d9;
-    /* font-size: 12px; */
 }
 #main .widget-area ul ul { margin-left: 0; }
 #side-recently-changed ul { 
