@@ -7,7 +7,7 @@ log = getLogger(__name__)
 from pylons.i18n import _
 from pylons import tmpl_context as c, config
 import genshi
-from ckan.lib.base import render, etag_cache, h, redirect, request, abort
+from ckan.lib.base import render, h, redirect, request, abort
 from ckan.lib.search import query_for, SearchError
 from ckan.lib.helpers import Page
 from ckan.controllers import home
@@ -136,11 +136,7 @@ class DataCatalogsController(package.PackageController):
 
 
 class DataCatalogsHomeController(home.HomeController):
-    @home.proxy_cache(expires=home.cache_expires)
     def index(self):
-        cache_key = self._home_cache_key()
-        etag_cache(cache_key)
-
         try:
             query = query_for(model.Package)
             query.run({'q': '*:*'})
@@ -153,8 +149,7 @@ class DataCatalogsHomeController(home.HomeController):
             c.package_count = 0
             c.latest_packages = []
 
-        return render('home/index.html', cache_key=cache_key,
-                      cache_expire=home.cache_expires)
+        return render('home/index.html')
 
 class DataCatalogsGroupController(group.GroupController):
     def read(self, id):
