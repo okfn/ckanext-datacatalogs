@@ -15,10 +15,22 @@
 <fieldset id="basic-information">
   <legend>Catalog Information</legend>
   <dl>
+    <dt><label class="field_req" for="url">Catalog URL *</label></dt>
+    <dd><input id="url" name="url" type="text" value="${data.get('url', '')}"/></dd>
+    <dd class="instructions basic">The catalog's homepage URL.</dd>
+    <dd class="hints">e.g. http://www.ckan.net</dd>
+    <dd class="field_error" py:if="errors.get('url', '')">${errors.get('url', '')}</dd>
+
     <dt><label class="field_req" for="title">Name *</label></dt>
     <dd><input id="title" class="js-title" name="title" type="text" value="${data.get('title', '')}"/></dd>
     <dd class="instructions basic">Make it short and descriptive, without a trailing full stop.</dd>
     <dd class="field_error" py:if="errors.get('title', '')">${errors.get('title', '')}</dd>
+
+    <dt><label class="field_opt" for="notes">Description</label></dt>
+    <dd><textarea cols="60" id="notes" name="notes" rows="15">${data.get('notes', '')}</textarea></dd>
+    <dd class="instructions basic">Start with a short descriptive sentence before going into details.</dd>
+    <dd class="hints">You can use 
+    <a href="http://daringfireball.net/projects/markdown/syntax">Markdown formatting</a> here.</dd>
 
     <dt><label class="field_req" for="name">Machine Name *</label></dt>
     <dd><input id="name" maxlength="100" name="name" type="text" value="${data.get('name', '')}" /></dd>
@@ -26,18 +38,6 @@
     <dd class="instructions further">A human readable identifier. Use acronyms sparingly.</dd>
     <dd class="hints">2 or more lowercase alphanumeric characters, dash and underscore</dd>
     <dd class="field_error" py:if="errors.get('name', '')">${errors.get('name', '')}</dd>
-
-    <dt><label class="field_req" for="url">Catalog URL *</label></dt>
-    <dd><input id="url" name="url" type="text" value="${data.get('url', '')}"/></dd>
-    <dd class="instructions basic">The catalog's homepage URL.</dd>
-    <dd class="hints">e.g. http://www.ckan.net</dd>
-    <dd class="field_error" py:if="errors.get('url', '')">${errors.get('url', '')}</dd>
-
-    <dt><label class="field_opt" for="notes">Description</label></dt>
-    <dd><textarea cols="60" id="notes" name="notes" rows="15">${data.get('notes', '')}</textarea></dd>
-    <dd class="instructions basic">Start with a short descriptive sentence before going into details.</dd>
-    <dd class="hints">You can use 
-    <a href="http://daringfireball.net/projects/markdown/syntax">Markdown formatting</a> here.</dd>
 
     <dt><label class="field_opt" for="author">Publisher</label></dt>
     <dd><input id="author" name="author" type="text" value="${data.get('author', '')}"/></dd>
